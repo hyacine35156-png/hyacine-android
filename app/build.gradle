@@ -1,0 +1,45 @@
+plugins {
+    id 'com.android.application'
+}
+
+android {
+    namespace 'com.hyacine.app'
+    compileSdk 34
+
+    defaultConfig {
+        applicationId "com.hyacine.app"
+        minSdk 24
+        targetSdk 34
+        versionCode 34
+        versionName "3.14"
+    }
+
+    signingConfigs {
+        debug {
+            storeFile file("../hyacine-debug.keystore")
+            storePassword "hyacine123"
+            keyAlias "hyacine"
+            keyPassword "hyacine123"
+        }
+    }
+
+    buildTypes {
+        debug {
+            signingConfig signingConfigs.debug
+        }
+        release {
+            minifyEnabled false
+            signingConfig signingConfigs.debug
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+}
+
+dependencies {
+    implementation 'androidx.appcompat:appcompat:1.6.1'
+    implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.1.0'
+}
