@@ -131,7 +131,19 @@ public class MainActivity extends AppCompatActivity {
         });
         swipeRefresh.setOnRefreshListener(() -> webView.reload());
 
-        webView.loadUrl(APP_URL);
+        // 恢复WebView状态（旋转屏幕等配置变更时）
+        if (savedInstanceState != null && webView.restoreState(savedInstanceState) != null) {
+            // 状态已恢复，无需重新加载
+        } else {
+            webView.loadUrl(APP_URL);
+        }
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        // 保存WebView状态（包括当前页面URL、表单数据、滚动位置等）
+        webView.saveState(outState);
     }
 
     @Override
