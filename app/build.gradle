@@ -17,11 +17,18 @@ android {
         applicationId "com.hyacine.app"
         minSdk 24
         targetSdk 34
-        versionCode 35
-        versionName "3.15"
+        versionCode 36
+        versionName "3.16"
     }
 
     signingConfigs {
+        debug {
+            // 统一使用hyacine-debug.keystore签名，确保覆盖安装不冲突
+            storeFile file("../hyacine-debug.keystore")
+            storePassword 'hyacine123'
+            keyAlias 'hyacine'
+            keyPassword 'hyacine123'
+        }
         release {
             if (keystorePropertiesFile.exists()) {
                 storeFile file(keystoreProperties['storeFile'])
@@ -34,7 +41,7 @@ android {
 
     buildTypes {
         debug {
-            // debug 构建使用系统默认签名，不依赖 keystore.properties
+            signingConfig signingConfigs.debug
         }
         release {
             minifyEnabled true
